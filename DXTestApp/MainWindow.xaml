@@ -10,49 +10,36 @@
         <dxre:RichEditStringIdConverter x:Key="stringIdConverter"/>
     </dx:ThemedWindow.Resources>
     <Grid>
-        <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small">
-            <dxb:BarManager.Items>
-                <dxb:BarButtonItem x:Name="biFileNew" Command="{Binding FileNew, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFileOpen" Command="{Binding FileOpen, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFileSave" Command="{Binding FileSave, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFileSaveAs" Command="{Binding FileSaveAs, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFileQuickPrint" Command="{Binding FileQuickPrint, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFilePrint" Command="{Binding FilePrint, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFilePrintPreview" Command="{Binding FilePrintPreview, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biEditUndo" Command="{Binding EditUndo, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biEditRedo" Command="{Binding EditRedo, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFileDocumentProperties" Command="{Binding FileDocumentProperties, Mode=OneTime, Source={StaticResource commands}}"/>
-            </dxb:BarManager.Items>
-            <DockPanel>
-                <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top">
-                    <dxr:RibbonDefaultPageCategory>
-                        <dxr:RibbonPage x:Name="pageFile" Caption="{Binding ConverterParameter=Caption_PageFile, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
-                            <dxr:RibbonPageGroup x:Name="grpFileCommon" Caption="{Binding ConverterParameter=Caption_GroupCommon, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
-                                <dxr:RibbonPageGroup.ItemLinks>
-                                    <dxb:BarButtonItemLink BarItemName="biFileNew"/>
-                                    <dxb:BarButtonItemLink BarItemName="biFileOpen"/>
-                                    <dxb:BarButtonItemLink BarItemName="biFileSave"/>
-                                    <dxb:BarButtonItemLink BarItemName="biFileSaveAs"/>
-                                    <dxb:BarButtonItemLink BarItemName="biFileQuickPrint"/>
-                                    <dxb:BarButtonItemLink BarItemName="biFilePrint"/>
-                                    <dxb:BarButtonItemLink BarItemName="biFilePrintPreview"/>
-                                    <dxb:BarButtonItemLink BarItemName="biEditUndo"/>
-                                    <dxb:BarButtonItemLink BarItemName="biEditRedo"/>
-                                </dxr:RibbonPageGroup.ItemLinks>
-                            </dxr:RibbonPageGroup>
-                            <dxr:RibbonPageGroup x:Name="grpFileInfo" Caption="{Binding ConverterParameter=Caption_GroupInfo, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
-                                <dxr:RibbonPageGroup.ItemLinks>
-                                    <dxb:BarButtonItemLink BarItemName="biFileDocumentProperties"/>
-                                </dxr:RibbonPageGroup.ItemLinks>
-                            </dxr:RibbonPageGroup>
-                            <dxr:RibbonPageGroup Caption="DocVariable">
-                                <dxb:BarButtonItem Content="Добавить переменную" Command="{Binding ShowAddVariableForm}" />
-                            </dxr:RibbonPageGroup>
-                        </dxr:RibbonPage>
-                    </dxr:RibbonDefaultPageCategory>
-                </dxr:RibbonControl>
-                <dxre:RichEditControl x:Name="richEditControl" BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}"/>
-            </DockPanel>
-        </dxb:BarManager>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.85*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.7*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock  Grid.Row="0" Grid.Column="0" Text="{Binding Json}" />
+        <dxre:RichEditControl Grid.Row="0" Grid.Column="1"  x:Name="richEditControl" CommandBarStyle="Ribbon" Grid.RowSpan="2"  />
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Content="Добавить переменную" Grid.Row="0" HorizontalAlignment="Left"  Command="{Binding ShowAddVariableForm}"  Width="152" />
+            <WrapPanel Grid.Row="1">
+                <Button Content="Добавить поле"  Width="110" Command="{Binding AddField}" />
+                <ComboBox   Height="38"  ItemsSource="{Binding Variables}" SelectedValue="{Binding SelectedVariable}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <TextBlock FontSize="18" Text="{Binding Path=NameVar}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </WrapPanel>
+            <Button Content="Заполнить" Grid.Row="2" HorizontalAlignment="Left"  Width="92" Command="{Binding FillField}" />
+        </Grid>
     </Grid>
 </dx:ThemedWindow>

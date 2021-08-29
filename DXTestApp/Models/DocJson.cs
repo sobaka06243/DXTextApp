@@ -8,11 +8,11 @@ namespace DXTestApp.Models
 {
     public class File
     {
-        public FileItem[] files { get; set; }
+        public FileItem[] variables { get; set; }
     }
     public class FileItem
     {
-        public string name { get; set; }
-        public string text { get; set; }
+        public string var1 { get; set; }
+        public string var2 { get; set; }
     }
 }

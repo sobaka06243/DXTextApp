@@ -77,7 +77,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\CommandDoc.cs" />
     <Compile Include="Models\DocJson.cs" />
-    <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\Variable.cs" />
     <Compile Include="ViewModels\AddVariableViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\AddVariable.xaml.cs">
@@ -120,7 +120,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
-    <None Include="files.json" />
+    <None Include="variables.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -128,7 +128,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Document\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
